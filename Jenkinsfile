@@ -6,7 +6,7 @@ node {
 
    //Mark the code build script 'stage'......
    stage 'Find build script'
-   sh './myBuild.sh'
+   sh './build.sh'
    
 
    // Get the maven tool.

@@ -1,1 +1,2 @@
-echo "hello ,You built your project using this script!"
+#!/bin/bash
+echo "hello ,You built your project using this script! "

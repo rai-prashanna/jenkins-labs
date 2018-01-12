@@ -6,7 +6,7 @@ node {
 
    //Mark the code build script 'stage'......
    stage 'Find build script'
-   sh './game-of-life/build.sh'
+   sh 'sh /game-of-life/build.sh'
    
 
    // Get the maven tool.
@@ -22,5 +22,5 @@ node {
 
    //Mark the code deploy 'stage'
    stage 'deploy'
-   sh './game-of-life/deploy.sh'
+   sh 'sh /game-of-life/deploy.sh'
 }

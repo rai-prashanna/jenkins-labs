@@ -1,8 +1,6 @@
 #!groovy
 node {
 
-    notifyStarted()
-    
    // Mark the code checkout 'stage'....
    stage 'Checkout'
    git url: 'https://github.com/rai-prashanna/jenkins-labs.git'

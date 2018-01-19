@@ -18,18 +18,18 @@ node {
    // Mark the code build 'stage'....
    stage 'Build'
    // Run the maven build
+   mail to:"prashanna@fusemachines.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
    sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore clean package -f game-of-life/pom.xml"
    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-   post {
-    always {
-      //deleteDir()
-    }
-    success {
-      mail to:"prashanna@fusemachines.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
-    }
-    failure {
-      mail to:"prashanna@fusemachines.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
-    }
+   try {
+    
+  // success {
+  //   mail to:"prashanna@fusemachines.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
+   // }
+   // failure {
+  //   mail to:"prashanna@fusemachines.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
+   // }
+    
   }
 
    //Mark the code deploy 'stage'

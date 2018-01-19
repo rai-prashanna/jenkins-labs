@@ -20,16 +20,9 @@ node {
    // Run the maven build
    sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore clean package -f game-of-life/pom.xml"
    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-
-   //Mark the code deploy 'stage'
-   stage 'deploy'
-   sh 'sh game-of-life/deploy.sh'
- 
-   
- }   
-  post {
+   post {
     always {
-      deleteDir()
+      //deleteDir()
     }
     success {
       mail to:"prashanna@fusemachines.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
@@ -38,4 +31,12 @@ node {
       mail to:"prashanna@fusemachines.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
     }
   }
+
+   //Mark the code deploy 'stage'
+   stage 'deploy'
+   sh 'sh game-of-life/deploy.sh'
+ 
+   
+ }   
+  
  

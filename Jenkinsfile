@@ -40,4 +40,4 @@ node {
       mail to:"prashanna@fusemachines.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
     }
   }
- }
+ 

@@ -22,7 +22,7 @@ node {
    try {
      sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore clean package -f game-of-life/pom.xml"
      step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-     input message: 'please eneter something ', ok: 'this', parameters: [run(description: 'this is just used for description.', filter: 'ALL', name: 'project', projectName: 'project-name')], submitter: 'prashanna@fusemachines.com', submitterParameter: 'url'
+     input message: 'please eneter something ', ok: 'this', parameters: [run(description: 'this is just used for description.', filter: 'ALL', name: 'project', projectName: 'project-name')], submitter: 'admin', submitterParameter: 'url'
      
   }
   catch(all){

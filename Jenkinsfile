@@ -19,10 +19,10 @@ node {
    stage 'Build'
    // Run the maven build
    mail to:"prashanna@fusemachines.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
-   sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore clean package -f game-of-life/pom.xml"
-   step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+  
    try {
-    
+     sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore clean package -f game-of-life/pom.xml"
+   step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
   // success {
   //   mail to:"prashanna@fusemachines.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
    // }
@@ -31,6 +31,12 @@ node {
    // }
     
   }
+  catch(all){
+      if(currentBuild.result!='FAILURE'){
+         emailext body: '$DEFAULT_CONTENT', subject: '$BUILD_STATUS - $JOB_NAME', to: 'prashanna@fusemachines.com'
+      }
+  }
+
 
    //Mark the code deploy 'stage'
    stage 'deploy'

@@ -17,7 +17,7 @@ node {
 
    // Mark the code build 'stage'....
    stage 'Build'
-   // Run the maven build
+   // Run the maven build  added logic to send attach log inside email
    emailext body: '$DEFAULT_CONTENT', subject: '$BUILD_STATUS - $JOB_NAME', to: 'prashanna@fusemachines.com'
    try {
      sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore clean package -f game-of-life/pom.xml"
@@ -25,10 +25,10 @@ node {
   }
   catch(all){
       if(currentBuild.result!='FAILURE'){
-         emailext body: '$DEFAULT_CONTENT', subject: '$BUILD_STATUS - $JOB_NAME', to: 'prashanna@fusemachines.com'
+         emailext attachLog: true, body: '$DEFAULT_CONTENT', subject: '$BUILD_STATUS - $JOB_NAME', to: 'prashanna@fusemachines.com'
       }
   	if(currentBuild.result == 'FAILURE'){
-         emailext body: '$DEFAULT_CONTENT', subject: '$BUILD_STATUS - $JOB_NAME', to: 'prashanna@fusemachines.com'
+         emailext attachLog: true, body: '$DEFAULT_CONTENT', subject: '$BUILD_STATUS - $JOB_NAME', to: 'prashanna@fusemachines.com'
       }	
   }
   

@@ -9,7 +9,7 @@ node {
    stage 'Find build script'
    sh 'sh game-of-life/build.sh'
    
-
+    
    // Get the maven tool.
    // ** NOTE: This 'M3' maven tool must be configured
    // **       in the global configuration.           
@@ -20,10 +20,9 @@ node {
    // Run the maven build  added logic to send attach log inside email
    emailext attachLog: true, body: '$DEFAULT_CONTENT', subject: '$BUILD_STATUS - $JOB_NAME', to: 'prashanna@fusemachines.com'
    try {
-     sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore clean package -f game-of-life/pom.xml"
-     step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-     input message: 'please eneter something ', ok: 'this', parameters: [run(description: 'this is just used for description.', filter: 'ALL', name: 'project', projectName: 'project-name')], submitter: 'admin', submitterParameter: 'url'
-     
+     //sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore clean package -f game-of-life/pom.xml"
+     //step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+     sh "echo this is ${env.AWS_ACCESS_KEY_ID}"
   }
   catch(all){
       if(currentBuild.result!='FAILURE'){
